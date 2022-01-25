@@ -6,7 +6,7 @@ import { notFound, ok, serverError } from "../../../../core/presentation/helpers
 import { Impediment } from "../../domain/models/impediment";
 import { ImpedimentRepository } from "../../infra/repositories/impediment.repository";
 
-export class GetOneImpedimentController implements Controller {
+export class DelOneImpedimentController implements Controller {
   async handle(req: Request, res: Response): Promise<any> {
     console.log(
       "lógica para buscar um impedimento por um identificador (uid) acessando o repositório"

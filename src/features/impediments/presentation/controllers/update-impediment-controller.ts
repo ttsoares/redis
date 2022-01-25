@@ -15,14 +15,11 @@ export class UpdateImpedimentController implements Controller {
 
       const impediment = await repository.editImpediment({ uid, ...req.body });
 
-      console.log(impediment)
-      console.log("-------------------------")
-
       if (!impediment) return notFound(res);
 
-      // const cache = new CacheRepository();
-      // await cache.delete("impediments");
-      // await cache.delete(`impediment:${uid}`);
+      const cache = new CacheRepository();
+      await cache.delete("impediments");
+      await cache.delete(`impediment:${uid}`);
 
       return ok(res, impediment);
     } catch (error: any) {

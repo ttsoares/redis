@@ -48,7 +48,6 @@ export class ImpedimentEntity extends BaseEntity {
     this.uid = uuid();
     this.createdAt = new Date();
     this.updatedAt = new Date();
-    this.resolve = false;
   }
 
   @BeforeUpdate()

@@ -62,6 +62,7 @@ export class ImpedimentRepository {
 
   async editImpediment(data: ImpedimentParams): Promise<Impediment | undefined> {
     console.log("editImpediment consultar o banco e recuperar todos os registros");
+
     const impedimentEntity = await ImpedimentEntity.findOne(data.uid);
 
     if (!impedimentEntity) return undefined;
@@ -72,14 +73,18 @@ export class ImpedimentRepository {
 
     const newResolve = data.resolve ? data.resolve : impedimentEntity?.resolve;
 
-    console.log(newTitle, newDescription, newResolve)
+    const uid_project = impedimentEntity?.uid_project
 
     const impedimentUpdated = ImpedimentEntity.create({
+      uid: data.uid,
       title: newTitle,
-      uid_project: data.uid,
+      uid_project: uid_project,
       description: newDescription,
-      resolve: newResolve,
+      resolve: newResolve
     });
+
+    console.log("----------------------------------")
+    console.log(impedimentUpdated)
 
     await impedimentUpdated.save();
 
