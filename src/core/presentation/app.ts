@@ -1,6 +1,7 @@
 import express, { Response, Request } from "express";
 import cors from "cors";
 import ProjectRoutes from "../../features/projects/presentation/routes/routes";
+import ImpedimentRoutes from "../../features/impediments/presentation/routes/routes"
 import AuthenticationRoutes from "../../features/authentication/presentation/routes/routes";
 
 /**
@@ -37,6 +38,9 @@ export default class App {
 
     const projectRoutes = new ProjectRoutes().init();
     this.#express.use(projectRoutes);
+
+    const impedimentRoutes =  new ImpedimentRoutes().init()
+    this.#express.use(impedimentRoutes)
 
     const authenticationRoutes = new AuthenticationRoutes().init();
     this.#express.use(authenticationRoutes);

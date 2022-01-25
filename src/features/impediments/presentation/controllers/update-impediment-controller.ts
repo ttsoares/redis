@@ -5,23 +5,26 @@ import { notFound, ok, serverError } from "../../../../core/presentation/helpers
 
 import { ImpedimentRepository } from "../../infra/repositories/impediment.repository";
 
-export class UpdateProjectController implements Controller {
+export class UpdateImpedimentController implements Controller {
   async handle(req: Request, res: Response): Promise<any> {
-    console.log("lógica para atualizar um projeto acessando o repositório");
+    console.log("lógica para atualizar um impedimento acessando o repositório");
     try {
       const { uid } = req.params;
 
       const repository = new ImpedimentRepository();
 
-      const project = await repository.editImpediment({ uid, ...req.body });
+      const impediment = await repository.editImpediment({ uid, ...req.body });
 
-      if (!project) return notFound(res);
+      console.log(impediment)
+      console.log("-------------------------")
 
-      const cache = new CacheRepository();
-      await cache.delete("projects");
-      await cache.delete(`project:${uid}`);
+      if (!impediment) return notFound(res);
 
-      return ok(res, project);
+      // const cache = new CacheRepository();
+      // await cache.delete("impediments");
+      // await cache.delete(`impediment:${uid}`);
+
+      return ok(res, impediment);
     } catch (error: any) {
       return serverError(res, error);
     }

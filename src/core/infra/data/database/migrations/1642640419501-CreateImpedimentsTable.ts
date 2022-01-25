@@ -31,6 +31,11 @@ export class CreateImpedimentsTable1642640419501 implements MigrationInterface {
             isNullable: false,
           },
           {
+            name: "resolve",
+            type: "boolean",
+            isNullable: false,
+          },
+          {
             name: "created_at",
             type: "timestamp",
             isNullable: false,
@@ -45,7 +50,7 @@ export class CreateImpedimentsTable1642640419501 implements MigrationInterface {
           new TableForeignKey({
             name: "fk_project_impediment",
             columnNames: ["uid_project"],
-            referencedTableName: "project",
+            referencedTableName: "projects",
             referencedColumnNames: ["uid"],
           }),
         ],

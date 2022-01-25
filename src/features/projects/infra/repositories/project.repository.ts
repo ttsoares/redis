@@ -79,6 +79,8 @@ export class ProjectRepository {
     const projectUpdated = ProjectEntity.create({
       name: data.name,
       description: data.description,
+      startDate: data.startDate,
+      endDate: data.endDate,
       uid: data.uid,
     });
 

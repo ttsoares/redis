@@ -30,7 +30,7 @@ export class ImpedimentRepository {
   }
 
   async getByUid(uid: string): Promise<Impediment | undefined> {
-    console.log("vai consultar o banco para recuperar o registro pelo uid");
+    console.log("getByUid consultar o banco para recuperar o registro pelo uid");
 
     const impedimentEntity = await ImpedimentEntity.findOne(uid);
 
@@ -40,7 +40,7 @@ export class ImpedimentRepository {
   }
 
   async delByUid(uid: string): Promise<Impediment | undefined> {
-    console.log("vai consultar o banco para recuperar o registro pelo uid");
+    console.log("delByUid consultar o banco para recuperar o registro pelo uid");
 
     const impedimentEntity = await ImpedimentEntity.findOne(uid);
 
@@ -52,7 +52,7 @@ export class ImpedimentRepository {
   }
 
   async getAll(): Promise<Impediment[]> {
-    console.log("consultar o banco e recuperar todos os registros");
+    console.log("getAll consultar o banco e recuperar todos os registros");
     const impedimentEntities = await ImpedimentEntity.find();
 
     return impedimentEntities.map((impedimentEntity) =>
@@ -61,17 +61,24 @@ export class ImpedimentRepository {
   }
 
   async editImpediment(data: ImpedimentParams): Promise<Impediment | undefined> {
+    console.log("editImpediment consultar o banco e recuperar todos os registros");
     const impedimentEntity = await ImpedimentEntity.findOne(data.uid);
 
     if (!impedimentEntity) return undefined;
 
+    const newTitle = data.title ? data.title : impedimentEntity?.title;
+
+    const newDescription = data.description ? data.description : impedimentEntity?.description;
+
+    const newResolve = data.resolve ? data.resolve : impedimentEntity?.resolve;
+
+    console.log(newTitle, newDescription, newResolve)
+
     const impedimentUpdated = ImpedimentEntity.create({
-      title: data.title,
-      description: data.description,
-      uid_project: data.uid_project,
-      resolve: data.resolve,
-      createdAt: data.createdAt,
-      updatedAt: data.updatedAt
+      title: newTitle,
+      uid_project: data.uid,
+      description: newDescription,
+      resolve: newResolve,
     });
 
     await impedimentUpdated.save();
