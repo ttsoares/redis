@@ -2,13 +2,13 @@ import { ImpedimentEntity } from "../../../../core/infra/data/database/entities/
 import { Impediment } from "../../domain/models/impediment";
 
 interface ImpedimentParams {
-  uid: string;
+  uid?: string;
   title: string;
   description: string;
   resolve: boolean;
   uid_project: string;
-  createdAt?: Date;
-  updatedAt?: Date;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export class ImpedimentRepository {
@@ -67,24 +67,15 @@ export class ImpedimentRepository {
 
     if (!impedimentEntity) return undefined;
 
-    const newTitle = data.title ? data.title : impedimentEntity?.title;
-
-    const newDescription = data.description ? data.description : impedimentEntity?.description;
-
-    const newResolve = data.resolve ? data.resolve : impedimentEntity?.resolve;
-
-    const uid_project = impedimentEntity?.uid_project
-
     const impedimentUpdated = ImpedimentEntity.create({
       uid: data.uid,
-      title: newTitle,
-      uid_project: uid_project,
-      description: newDescription,
-      resolve: newResolve
+      title: data.title,
+      uid_project: data.uid_project,
+      description: data.description,
+      resolve: data.resolve,
+      createdAt: data.createdAt,
+      updatedAt: data.updatedAt
     });
-
-    console.log("----------------------------------")
-    console.log(impedimentUpdated)
 
     await impedimentUpdated.save();
 
